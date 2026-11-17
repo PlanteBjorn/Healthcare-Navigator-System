@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Sign In</button>
 
                 <div class="caretaker-option"> <!--[bjorn] moved this to be under sign-in-->
-                    <a href="Caretaker%20signin.html">
+                    <a href="Caretaker%20signin.php">
                         Sign in as a Caretaker?
                     </a>
                 </div>

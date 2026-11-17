@@ -960,15 +960,18 @@ body.patient-dashboard .right-column {
 }
 
 /* Calendar */
-
 .calendar {
     background-color: #FFFFFF;
-    border-radius: 10px;
+    border-radius: 12px;
 
     padding: 15px;
     width: 280px;
+
+    border: 1px solid #E5F0F2;
+    box-shadow: 0 3px 10px rgba(0, 107, 115, 0.08);
 }
 
+/* calendar header */
 .calendar-header {
     display: flex;
     justify-content: space-between;
@@ -978,19 +981,40 @@ body.patient-dashboard .right-column {
 }
 
 .calendar-header button {
-    background: none;
+    background-color: #EAF8FC;
+    color: #008FA5;
+
     border: none;
+    border-radius: 6px;
+
     cursor: pointer;
     font-size: 20px;
+
+    width: 27px;
+    height: 27px;
+
+    transition: 0.2s ease;
+}
+
+.calendar-header button:hover {
+    background-color: #00B9C7;
+    color: #FFFFFF;
 }
 
 .calendar-header select {
-    border: 1px solid #DDDDDD;
-    border-radius: 5px;
-    padding: 4px;
+    border: 1px solid #DCECEF;
+    border-radius: 6px;
+
+    padding: 5px;
     font-size: 11px;
+
+    background-color: #F7FCFD;
+    color: #006B73;
+
+    cursor: pointer;
 }
 
+/* calendar days */
 .calendar-days, .calendar-dates {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -1000,46 +1024,53 @@ body.patient-dashboard .right-column {
 
 .calendar-days {
     font-size: 10px;
-    color: #777777;
+    color: #7B969B;
+    font-weight: bold;
+
     margin-bottom: 12px;
 }
-/* [Bjorn] changed this to fit the calander logic 1006 - 1030 */
+
+/* calendar dates */
 .calendar-dates span {
     display: flex;
     justify-content: center;
     align-items: center;
+
     min-height: 32px;
     font-size: 12px;
     padding: 7px 0;
-    border-radius: 5px;
+
+    border-radius: 7px;
     border: 2px solid transparent;
+
     box-sizing: border-box;
     cursor: pointer;
+
     transition: background-color 0.2s ease;
 }
 
 /* dates containing appointments */
 .calendar-dates span.highlight {
-    background-color: #00B96B;
-    color: #FFFFFF;
+    background-color: #00c75a;
+    color: #EAF8FC;
+    font-weight: bold;
 }
 
-/* hover over any actual date */
 .calendar-dates span:not(.highlight):not(:empty):hover {
-    background-color: #E5E5E5;
-    color: #222222;
+    background-color: #EAF8FC;
+    color: #008FA5;
 }
 
-/* currently selected date */
+/* currently Selected Date */
 .calendar-dates span.selected {
-    border: 2px solid #000000;
+    border: 2px solid #00B9C7;
 }
 
-/* selected date that also has an appointment */
+/* selected Date With Appointment */
 .calendar-dates span.highlight.selected {
-    background-color: #00B96B;
+    background-color: #00c75a;
     color: #FFFFFF;
-    border: 2px solid #000000;
+    border: 2px solid #333333;
 }
 
 /* Recommended Doctors */
@@ -1404,7 +1435,7 @@ body.caretaker-dashboard .right-column {
     gap: 30px;
 }
 
-/* Calendar(removed) [Bjorn] removed this since we only need a single calander*/
+/* Caretaker calendar(removed) [Bjorn] removed this since we only need a single calander style*/
 
 
 /* Select Patient */

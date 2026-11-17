@@ -55,6 +55,9 @@ if ($patient) {
     $patient = null;
 }
 
+// Insurance provider
+$provider_name = $patient["provider_name"] ?? "Insurance";
+
 $height = "175 cm"; // [bjorn] I messed up here and did not implement height or weight in the sql database (will fix later)
 $weight = "75 kg";
 
@@ -122,25 +125,11 @@ $blood_pressure = "120/80 mmHg"; // [bjorn] do we need this for our specific sys
 
                 <details class="nav-dropdown">
 
-                    <summary class="menu">&#9776;</summary>
+                    <summary class="menu">☰</summary>
 
                     <div class="nav-links">
 
-                        <a href="Caretaker Signup.html">
-                            Caretaker Sign Up
-                        </a>
-
-                        <a href="Caretaker Signin.html">
-                            Caretaker Sign In
-                        </a>
-
-                        <a href="Patient Dashboard.html">
-                            Patient Dashboard
-                        </a>
-
-                        <a href="Caretaker Dashboard.html">
-                            Caretaker Dashboard
-                        </a>
+                        <a href="index.html">Home</a>
 
                     </div>
 
@@ -338,7 +327,7 @@ $blood_pressure = "120/80 mmHg"; // [bjorn] do we need this for our specific sys
                                     </span>
 
                                     <?php if ($doctor["insurance_covered"]) { ?>
-                                        <small>✓ Northstar Health Covered</small>
+                                        <small>✓ <?php echo htmlspecialchars($provider_name); ?> Covered</small>
                                     <?php } ?>
                                 </div>
 
