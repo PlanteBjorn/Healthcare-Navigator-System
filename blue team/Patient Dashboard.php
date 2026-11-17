@@ -126,21 +126,7 @@ $blood_pressure = "120/80 mmHg"; // [bjorn] do we need this for our specific sys
 
                     <div class="nav-links">
 
-                        <a href="Caretaker Signup.html">
-                            Caretaker Sign Up
-                        </a>
-
-                        <a href="Caretaker Signin.html">
-                            Caretaker Sign In
-                        </a>
-
-                        <a href="Patient Dashboard.html">
-                            Patient Dashboard
-                        </a>
-
-                        <a href="Caretaker Dashboard.html">
-                            Caretaker Dashboard
-                        </a>
+<a href="index.html">Home</a>
 
                     </div>
 
