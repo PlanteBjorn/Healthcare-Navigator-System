@@ -59,8 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <details>
                 <summary>☰</summary>
                 <a href="index.html">Home</a>
-                <a href="signin.html">Patient Sign In</a>
-                <a href="signup.html">Patient Sign Up</a>
+                
             </details>
         </nav>
     </header>
