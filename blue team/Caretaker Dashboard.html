@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HNS - Caretaker Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="caretaker-dashboard">
+
+<div class="dashboard">
+
+    <header>
+
+        <div class="logo">
+
+            <svg width="45" height="38" viewBox="0 0 50 45">
+
+                <path d="M22 13 C15 0, 0 9, 7 22 L22 37 L37 22 C44 9, 29 0, 22 13"
+                      fill="none"
+                      stroke="#00B9C7"
+                      stroke-width="3"/>
+
+                <path d="M32 18 C25 5, 12 14, 17 26 L32 41 L45 26 C52 14, 39 5, 32 18"
+                      fill="none"
+                      stroke="#00B9C7"
+                      stroke-width="3"/>
+
+            </svg>
+
+        </div>
+
+        <div class="header-right">
+
+            <!-- Navigation Menu -->
+
+            <nav class="site-navigation">
+
+                <details class="nav-dropdown">
+
+                    <summary class="menu">&#9776;</summary>
+
+                    <div class="nav-links">
+
+                        <a href="Caretaker Signup.html">
+                            Caretaker Sign Up
+                        </a>
+
+                        <a href="Caretaker Signin.html">
+                            Caretaker Sign In
+                        </a>
+
+                        <a href="Patient Dashboard.html">
+                            Patient Dashboard
+                        </a>
+
+                        <a href="Caretaker Dashboard.html">
+                            Caretaker Dashboard
+                        </a>
+
+                    </div>
+
+                </details>
+
+            </nav>
+
+            <div class="caretaker-profile">
+
+                <span class="caretaker-badge">
+                    Caretaker
+                </span>
+
+                <div class="caretaker-info">
+
+                    <strong>Ramos</strong>
+                    <small>TheCaretaker67</small>
+
+                </div>
+
+                <div class="avatar">👤</div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <div class="welcome">
+
+            <h2>Welcome Back, Ramos!</h2>
+
+            <p>
+                Manage your loved ones' health and stay connected
+                with their care
+            </p>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <!-- Left Column -->
+
+            <div class="left-column">
+
+                <section class="appointment-card">
+
+                    <h3>Upcoming Patient Appointment</h3>
+
+                    <p>
+                        <strong>Patient:</strong> Robert Smith<br>
+                        <strong>Doctor:</strong> Dr. Victor von Doom<br>
+                        <strong>Date:</strong> November 5, 2026<br>
+                        <strong>Time:</strong> 10:00 AM<br>
+                        <strong>Status:</strong> Confirmed
+                    </p>
+
+                    <a href="#">
+                        View Appointment Details →
+                    </a>
+
+                </section>
+
+                <section class="medical-card">
+
+                    <h3>Patients Medical record</h3>
+
+                    <div class="medical-info">
+
+                        <p>
+                            <strong>Patient Name:</strong>
+                            Robert Smith
+                        </p>
+
+                        <p>
+                            <strong>Age:</strong>
+                            72 Years
+                        </p>
+
+                        <p>
+                            <strong>Blood Type:</strong>
+                            O+
+                        </p>
+
+                        <p>
+                            <strong>Height:</strong>
+                            170 cm
+                        </p>
+
+                        <p>
+                            <strong>Weight:</strong>
+                            78 kg
+                        </p>
+
+                        <p>
+                            <strong>Blood Pressure:</strong>
+                            125/80 mmHg
+                        </p>
+
+                        <p>
+                            <strong>Allergies:</strong>
+                            None Reported
+                        </p>
+
+                        <p>
+                            <strong>Last Checkup:</strong>
+                            September 10, 2026
+                        </p>
+
+                    </div>
+
+                </section>
+
+                <section class="quick-actions">
+
+                    <h3>Quick Actions</h3>
+
+                    <a href="#">
+                        📅 Book Patient Appointment →
+                    </a>
+
+                    <a href="#">
+                        📋 View Patient Test Results →
+                    </a>
+
+                    <a href="#">
+                        💬 Contact Patient's Doctor →
+                    </a>
+
+                    <a href="#">
+                        💊 Manage Medications →
+                    </a>
+
+                </section>
+
+            </div>
+
+            <!-- Right Column -->
+
+            <div class="right-column">
+
+                <div class="calendar">
+
+                    <div class="calendar-header">
+
+                        <button onclick="changeMonth(-1)">‹</button>
+
+                        <select
+                            id="monthSelect"
+                            onchange="renderCalendar()">
+                        </select>
+
+                        <select
+                            id="yearSelect"
+                            onchange="renderCalendar()">
+                        </select>
+
+                        <button onclick="changeMonth(1)">›</button>
+
+                    </div>
+
+                    <div class="calendar-days">
+
+                        <span>Su</span>
+                        <span>Mo</span>
+                        <span>Tu</span>
+                        <span>We</span>
+                        <span>Th</span>
+                        <span>Fr</span>
+                        <span>Sa</span>
+
+                    </div>
+
+                    <div
+                        class="calendar-dates"
+                        id="calendarDates">
+                    </div>
+
+                </div>
+
+                <div class="patient-selection">
+
+                    <h3>Select patient</h3>
+
+                    <select id="patientSelect">
+
+                        <option value="Robert Smith">
+                            Robert Smith
+                        </option>
+
+                        <option value="John Patient">
+                            John Patient
+                        </option>
+
+                        <option value="Sarah Williams">
+                            Sarah Williams
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <section class="doctors-section">
+
+                    <h3>Recommended Doctors:</h3>
+
+                    <div class="doctors-list">
+
+                        <div class="doctor-card selected">
+
+                            <p>👤 Dr. Victor von Doom M.D.</p>
+
+                            <span>
+                                Cardiology – Heart Specialist
+                            </span>
+
+                        </div>
+
+                        <div class="doctor-card">
+
+                            <p>👤 Dr. Gregory House M.D.</p>
+
+                            <span>
+                                Diagnostic Medicine – Internal Medicine
+                            </span>
+
+                        </div>
+
+                        <div class="doctor-card selected">
+
+                            <p>👤 Dr. Sarah Johnson M.D.</p>
+
+                            <span>
+                                Cardiology – Heart Specialist
+                            </span>
+
+                        </div>
+
+                        <div class="doctor-card">
+
+                            <p>👤 Dr. Michael Anderson M.D.</p>
+
+                            <span>
+                                Family Medicine – Primary Care
+                            </span>
+
+                        </div>
+
+                        <div class="doctor-card">
+
+                            <p>👤 Dr. Emily Wilson M.D.</p>
+
+                            <span>
+                                Neurology – Brain & Nervous System
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+
+    const months = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    const monthSelect = document.getElementById("monthSelect");
+    const yearSelect = document.getElementById("yearSelect");
+
+    months.forEach((month, index) => {
+        monthSelect.add(new Option(month, index));
+    });
+
+    for (let year = 2020; year <= 2035; year++) {
+        yearSelect.add(new Option(year, year));
+    }
+
+    monthSelect.value = 8;
+    yearSelect.value = 2025;
+
+    function renderCalendar() {
+
+        const month = Number(monthSelect.value);
+        const year = Number(yearSelect.value);
+
+        const firstDay = new Date(year, month, 1).getDay();
+
+        const daysInMonth =
+            new Date(year, month + 1, 0).getDate();
+
+        const calendarDates =
+            document.getElementById("calendarDates");
+
+        calendarDates.innerHTML = "";
+
+        for (let i = 0; i < firstDay; i++) {
+
+            calendarDates.appendChild(
+                document.createElement("span")
+            );
+
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+
+            const date = document.createElement("span");
+
+            date.textContent = day;
+
+            if (
+                month === 8 &&
+                year === 2025 &&
+                [9, 13].includes(day)
+            ) {
+                date.classList.add("highlight");
+            }
+
+            calendarDates.appendChild(date);
+        }
+    }
+
+    function changeMonth(direction) {
+
+        let month = Number(monthSelect.value) + direction;
+        let year = Number(yearSelect.value);
+
+        if (month < 0) {
+            month = 11;
+            year--;
+        }
+
+        if (month > 11) {
+            month = 0;
+            year++;
+        }
+
+        if (year < 2020 || year > 2035) {
+            return;
+        }
+
+        monthSelect.value = month;
+        yearSelect.value = year;
+
+        renderCalendar();
+    }
+
+    renderCalendar();
+
+</script>
+
+</body>
+</html>

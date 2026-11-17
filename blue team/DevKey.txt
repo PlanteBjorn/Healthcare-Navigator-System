@@ -1,0 +1,19 @@
+Use this for Quick access or for info
+
+you can use signup to make a username and password or use this Preset account:
+
+Patient
+Username: ThePatient67
+PassWord: J0hnnySilv3rh@nd
+
+Caretaker
+Username: TheCareTaker67
+Password: Pa$$w0rd
+
+Homepage: http://localhost/blue%20team/index.html
+PatientSignIn: http://localhost/blue%20team/signin.html
+PatientSignUp: http://localhost/blue%20team/signup.html
+CareTakerSignIn: http://localhost/blue%20team/Caretaker%20signin.html
+
+PatientDashboard: http://localhost/blue%20team/Patient%20Dashboard.php
+CaretakerDashboard: http://localhost/blue%20team/Caretaker%20Dashboard.html (this will change to a php as soon as it is finalized)

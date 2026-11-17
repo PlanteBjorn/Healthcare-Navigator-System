@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HNS - Caretaker Sign In</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="caretaker-signin">
+
+    <div class="page">
+
+        <header>
+
+            <div class="logo">
+
+                <svg width="45" height="38" viewBox="0 0 50 45">
+
+                    <path d="M22 13 C15 0, 0 9, 7 22 L22 37 L37 22 C44 9, 29 0, 22 13"
+                          fill="none"
+                          stroke="#00B9C7"
+                          stroke-width="3"/>
+
+                    <path d="M32 18 C25 5, 12 14, 17 26 L32 41 L45 26 C52 14, 39 5, 32 18"
+                          fill="none"
+                          stroke="#00B9C7"
+                          stroke-width="3"/>
+
+                </svg>
+
+            </div>
+
+            <!-- Navigation Menu -->
+
+            <nav class="site-navigation">
+
+                <details class="nav-dropdown">
+
+                    <summary class="menu">&#9776;</summary>
+
+                    <div class="nav-links">
+
+                        <a href="Caretaker Signup.html">
+                            Caretaker Sign Up
+                        </a>
+
+                        <a href="Caretaker Signin.html">
+                            Caretaker Sign In
+                        </a>
+
+                        <a href="Patient Dashboard.html">
+                            Patient Dashboard
+                        </a>
+
+                        <a href="Caretaker Dashboard.html">
+                            Caretaker Dashboard
+                        </a>
+
+                    </div>
+
+                </details>
+
+            </nav>
+
+        </header>
+
+        <main>
+
+            <section class="signin-section">
+
+                <h1>HNS</h1>
+
+                <h2>Make it Easier with HNS</h2>
+
+                <div class="welcome">
+
+                    <h3>Welcome, Caregiver!</h3>
+
+                    <p>
+                        Your care makes a difference. Stay connected<br>
+                        and support your loved ones with HNS
+                    </p>
+
+                </div>
+
+                <div class="signin-box">
+
+                    <p class="form-title">Caretaker Sign in</p>
+    
+                        <form onsubmit="caretakerLogin(event)">
+
+                        <input
+                            type="text"
+                            id="caretaker_id"
+                            name="caretaker_id"
+                            placeholder="Caretaker ID"
+                            required
+                        >
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Password"
+                            required
+                        >
+
+                        <a href="#" class="forgot-password">
+                            Forget Password ?
+                        </a>
+
+
+                        <button type="submit">
+                            Sign In
+                        </button>
+
+                        <div class="patient-option"> <!--[bjorn] moved this to be under sign-in-->
+                            <a href="signin.html">
+                                Sign in as a Patient?
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+            <section class="image-section">
+
+                <img
+                    src="signin-caregiver.png"
+                    alt="Caregiver supporting an elderly woman"
+                >
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+
+        function caretakerLogin(event) {
+
+            event.preventDefault();
+
+            const username =
+                document.getElementById("caretaker_id").value;
+
+            const password =
+                document.getElementById("password").value;
+
+
+            // preset
+            if (
+                username === "TheCareTaker67" &&
+                password === "Pa$$w0rd"
+            ) {
+
+                localStorage.setItem("caretakerLoggedIn", "true");
+
+                localStorage.setItem("caretakerUsername", username);
+
+                window.location.href = "Caretaker Dashboard.html";
+
+            } else {
+
+                // error handle
+                alert("Incorrect caretaker ID or password!");
+
+            }
+
+        }
+
+    </script>
+
+    <!-- END NEW JAVASCRIPT -->
+
+</body>
+</html>
