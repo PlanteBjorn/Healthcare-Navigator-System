@@ -33,18 +33,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $sql = "INSERT INTO hns_users
                     (HNS_first_name, HNS_last_name, HNS_username,
-                     Email, HNS_password, HNS_user_type)
-                    VALUES (?, ?, ?, ?, ?, 'Patient')";
+                    Email, HNS_password, HNS_user_type)
+                    VALUES (?, ?, ?, ?, ?, ?)";
 
             $stmt = mysqli_prepare($hns_conn, $sql);
             mysqli_stmt_bind_param(
                 $stmt,
-                "sssss",
+                "ssssss",
                 $first_name,
                 $last_name,
                 $username,
                 $email,
-                $password
+                $password,
+                $user_type
             );
 
             if (mysqli_stmt_execute($stmt)) {
@@ -110,6 +111,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
 
             <form action="" method="POST">
+                <div class="caretaker-option">
+                    <input type="checkbox" id="caretaker" name="caretaker" value="1">
+                    <label for="caretaker">Sign up as a Caretaker</label>
+                </div>
+
+                <p class="signup-signin">Already have an account?
+                    <a href="signin.php">Sign In</a>
+                </p>
+
                 <label for="first_name">First Name:</label>
                 <input type="text" id="first_name" name="first_name" required>
 
