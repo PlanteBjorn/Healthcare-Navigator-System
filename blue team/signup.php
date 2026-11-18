@@ -1,3 +1,4 @@
+<!--signup.php-->
 <!--[Bjorn] Changed from html to php-->
 <?php
 include("HNSDatabase.php");
@@ -27,6 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_bind_param($stmt, "ss", $username, $email);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
+
+        // Determine user type based on checkbox
+    if (isset($_POST["caretaker"])) {
+        $user_type = "Caretaker";
+    } else {
+        $user_type = "Patient";
+    }
 
         if (mysqli_num_rows($result) > 0) {
             $error = "Username or email is already registered.";

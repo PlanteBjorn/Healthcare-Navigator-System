@@ -1,3 +1,4 @@
+<!--signin.php-->
 <!--[Bjorn] changed signin to a php file-->
 <?php
 session_start();

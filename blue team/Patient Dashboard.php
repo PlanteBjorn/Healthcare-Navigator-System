@@ -1,3 +1,4 @@
+<!--Patient Dashboard.php-->
 <!--[bjorn] had to get rid of the dashboard php and turn this html into a php--> 
 
 <!--[Bjorn] seperating these php programs for visual clarity-->

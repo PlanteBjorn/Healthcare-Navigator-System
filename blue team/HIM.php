@@ -1,3 +1,4 @@
+<!--HIM.php-->
 <!--This is the Hospital Information Manager-->
 <!-- it will access the prebuilt psuedo hospital database in MyPHPAdmin -->
 <?php

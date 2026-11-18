@@ -1,3 +1,4 @@
+<!--HNSDatabase.php-->
 <!--this is our personal database, seperate from any hospital-->
 <?php
 $hns_conn = mysqli_connect("localhost", "root", "", "hns_database");

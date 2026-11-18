@@ -1,3 +1,4 @@
+<!--HCM.php-->
 <!--This is the Hospital Communication Manager-->
 <!-- it communicates with the hospital database through the Patient Dashboard -->
 
