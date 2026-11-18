@@ -471,7 +471,9 @@ $blood_pressure = "120/80 mmHg"; // [bjorn] do we need this for our specific sys
 
                     <h3>Quick Actions</h3>
 
-                    <a href="#">📅 Book Appointment →</a>
+                    <a href="BookAppointment.php">
+                        📅 Book Appointment →
+                    </a>
 
                     <a href="#">📋 View Test Results →</a>
 

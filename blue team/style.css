@@ -1085,15 +1085,16 @@ body.patient-dashboard .right-column {
 
 body.patient-dashboard .doctors-section {
     width: 100%;
-    max-width: 380px;
+    max-width: 100%;
+    top: 30px;
 
     background-color: #F7FCFC;
-    border-radius: 12px;
+    border-radius: 10px;
 
-    padding: 20px;
+    padding: 10px;
 
     position: relative;
-    left: -50px;
+    
 }
 
 body.patient-dashboard .doctors-section h3 {
@@ -2014,4 +2015,194 @@ body.patient-dashboard .appointment-details button:hover {
 .signup-signin a:hover {
     color: #008f99;
     text-decoration: underline;
+}
+
+/* booking section */
+.booking-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 35px 20px;
+    box-sizing: border-box;
+}
+
+/* booking card */
+.booking-card {
+    width: 100%;
+    max-width: 950px;
+    padding: 45px 50px;
+    background: linear-gradient(145deg, #ffffff, #f8fcfd);
+    border: 1px solid #e4eff1;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(28, 80, 90, 0.08);
+}
+
+/* heading */
+.booking-card h3 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #243b43;
+    margin: 0 0 10px;
+}
+
+/* form fields */
+.booking-field {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+}
+
+.booking-field label {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 650;
+    color: #36535c;
+}
+
+.booking-field select,
+.booking-field input,
+.booking-field textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #dce8eb;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #30474e;
+    font-family: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+/* dropdown */
+.booking-field select {
+    cursor: pointer;
+    appearance: auto;
+}
+
+.booking-field select:hover {
+    border-color: #8bd5da;
+    background-color: #fbffff;
+}
+
+/* input focus */
+.booking-field select:focus,
+.booking-field input:focus,
+.booking-field textarea:focus {
+    outline: none;
+    border-color: #00b9c7;
+    box-shadow: 0 0 0 4px rgba(0, 185, 199, 0.12);
+}
+
+/* text area */
+.booking-field textarea {
+    min-height: 115px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.booking-field textarea::placeholder {
+    color: #a1b2b7;
+}
+
+/* booking button */
+.booking-button {
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00b9c7, #009da9);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    box-shadow: 0 5px 14px rgba(0, 185, 199, 0.2);
+    transition: all 0.25s ease;
+}
+
+.booking-button:hover {
+    background: linear-gradient(135deg, #009da9, #00838e);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 157, 169, 0.25);
+}
+
+.booking-button:active {
+    transform: translateY(0);
+}
+
+/* success message */
+.booking-success {
+    padding: 15px 18px;
+    margin: 20px 0;
+    border: 1px solid #bce8ce;
+    border-radius: 10px;
+    background: #edfaf2;
+    color: #287849;
+    font-size: 14px;
+}
+
+/* error message */
+.booking-card .auth-error {
+    padding: 15px 18px;
+    margin: 20px 0;
+    border: 1px solid #f1c4c4;
+    border-radius: 10px;
+    background: #fff2f2;
+    color: #b63838;
+    font-size: 14px;
+}
+
+/* back navigation */
+.booking-back {
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    width: auto;
+    text-align: left;
+    display: block;
+}
+
+.booking-back a {
+    display: inline-block;
+    padding: 11px 20px;
+    border: 1px solid #dcebed;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #009da9;
+    font-size: 14px;
+    font-weight: 650;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.booking-back a:hover {
+    background: #eafafb;
+    border-color: #00b9c7;
+    transform: translateY(-1px);
+}
+
+/* doctor dropdown */
+body.patient-dashboard .booking-card .doctors-list select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #dce8eb;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #30474e;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+body.patient-dashboard .booking-card .doctors-list select:focus {
+    outline: none;
+    border-color: #00b9c7;
+    box-shadow: 0 0 0 4px rgba(0, 185, 199, 0.12);
+}
+
+body.patient-dashboard .booking-card .doctors-list select:hover {
+    border-color: #8bd5da;
 }

@@ -590,7 +590,7 @@ $blood_pressure = "120/80 mmHg";
 
                     <h3>Quick Actions</h3>
 
-                    <a href="#">
+                    <a href="BookAppointment.php?patient=<?php echo $selected_patient["patient_user_id"]; ?>">
                         📅 Book Patient Appointment →
                     </a>
 
