@@ -471,72 +471,55 @@ $blood_pressure = "120/80 mmHg";
 
                 <section class="appointment-section">
 
-                    <h3>
-                        <?php echo htmlspecialchars($patient_name); ?>'s Appointments
-                    </h3>
+                    <h3>Patient Appointment</h3>
 
                     <div class="appointment-card">
 
                         <h4>Upcoming Appointments</h4>
 
-                        <?php
-
-                        $upcoming_found = false;
-
-                        if ($appointments) {
-
-                            mysqli_data_seek($appointments, 0);
-
-                            while ($appointment = mysqli_fetch_assoc($appointments)) {
-
-                                if ($appointment["status"] === "Scheduled") {
-
-                                    $upcoming_found = true;
-
-                        ?>
-
+                        <?php if (!$patient) { ?>
+                            <p>Appointments unavailable. Hospital account not connected.</p>
+                        <?php } elseif ($appointments && mysqli_num_rows($appointments) > 0) { ?>
+                            <?php while ($appointment = mysqli_fetch_assoc($appointments)) { ?>
+                                <?php if ($appointment["status"] === "Scheduled") { ?>
                                     <div class="appointment-details">
 
                                         <p>
-                                            Dr. <?php echo htmlspecialchars(
-                                                $appointment["first_name"] . " " .
-                                                $appointment["last_name"]
-                                            ); ?>
-
+                                            Dr. <?php echo htmlspecialchars($appointment["first_name"] . " " . $appointment["last_name"]); ?>
                                             <br>
-
-                                            <?php echo date(
-                                                "F j, Y, g:i A",
-                                                strtotime($appointment["appointment_time"])
-                                            ); ?>
+                                            <?php echo date("F j, Y, g:i A", strtotime($appointment["appointment_time"])); ?>
                                         </p>
 
                                         <p>
-                                            <?php echo htmlspecialchars(
-                                                $appointment["department_name"]
-                                            ); ?>
+                                            <?php echo htmlspecialchars($appointment["department_name"]); ?>
                                         </p>
 
                                         <p>
-                                            <?php echo htmlspecialchars(
-                                                $appointment["reason"] ?? "No reason provided"
-                                            ); ?>
+                                            <?php echo htmlspecialchars($appointment["reason"] ?? "No reason provided"); ?>
                                         </p>
+
+                                        <form method="POST" onsubmit="return confirmAppointmentCancellation();">
+
+                                            <input
+                                                type="hidden"
+                                                name="appointment_id"
+                                                value="<?php echo $appointment["appointment_id"]; ?>"
+                                            >
+
+                                            <button type="submit" name="cancel_appointment">
+                                                Cancel Appointment
+                                            </button>
+
+                                        </form>
 
                                     </div>
 
-                        <?php
-                                }
-                            }
+                                <?php } ?>
+                            <?php } ?>
 
-                            mysqli_data_seek($appointments, 0);
-                        }
-
-                        if (!$upcoming_found) {
-                            echo "<p>No upcoming appointments.</p>";
-                        }
-
-                        ?>
+                        <?php } else { ?>
+                            <p>No upcoming appointments.</p>
+                        <?php } ?>
 
                     </div>
 
@@ -891,6 +874,19 @@ $blood_pressure = "120/80 mmHg";
     }
 
     renderCalendar();
+
+    function confirmAppointmentCancellation() {
+
+    return confirm("Cancel this appointment?");
+
+}
+
+    function confirmCaretakerRemoval() {
+
+        return confirm("Are you sure you want to remove this caretaker?");
+
+    }
+
 
 </script>
 

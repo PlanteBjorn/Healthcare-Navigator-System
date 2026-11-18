@@ -25,6 +25,108 @@ $last_name = $_SESSION["HNS_last_name"];
 <?php
 include("HNSDatabase.php");
 
+// [Bjorn] added caretaker authorization code generator
+// creates a CSRF token to prevent unauthorized requests
+if (empty($_SESSION["csrf_token"])) {
+    $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
+}
+
+$csrf_token = $_SESSION["csrf_token"];
+
+
+// removes caretaker access while keeping connection history
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["remove_caretaker"])) {
+    if (!isset($_POST["csrf_token"]) ||
+        !hash_equals($csrf_token, $_POST["csrf_token"])) {
+        $auth_error = "Invalid request. Please try again.";
+    } else {
+        $connection_id = filter_input(INPUT_POST, "connection_id", FILTER_VALIDATE_INT);
+        if (!$connection_id) {
+            $auth_error = "Invalid caretaker connection.";
+        } else {
+
+            $sql = "UPDATE hns_caretaker_patients
+                    SET status = 'Revoked'
+                    WHERE connection_id = ?
+                      AND patient_user_id = ?
+                      AND status = 'Active'";
+
+            $stmt = mysqli_prepare($hns_conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ii", $connection_id, $user_id);
+            mysqli_stmt_execute($stmt);
+            if (mysqli_stmt_affected_rows($stmt) > 0) {
+                $_SESSION["caretaker_removed"] = true;
+            } else {
+                $_SESSION["caretaker_removed"] = false;
+            }
+
+            mysqli_stmt_close($stmt);
+            header("Location: " . $_SERVER["PHP_SELF"]);
+            exit();
+
+        }
+    }
+}
+
+// displays caretaker removal result
+$caretaker_removed = $_SESSION["caretaker_removed"] ?? null;
+unset($_SESSION["caretaker_removed"]);
+
+// stores generated auth code and errors
+$generated_auth_code = $_SESSION["generated_auth_code"] ?? null;
+$auth_error = "";
+
+
+// generates authorization code when patient clicks button
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["generate_auth_code"])) {
+    if (!isset($_POST["csrf_token"]) ||
+        !hash_equals($csrf_token, $_POST["csrf_token"])) {
+        $auth_error = "Invalid request. Please try again.";
+    } else {
+        try {
+            $auth_code = strtoupper(bin2hex(random_bytes(4))); // generates 8 char code
+            $auth_code_hash = hash("sha256", $auth_code);
+            $patient_user_id = $_SESSION["HNS_user_id"];
+            mysqli_begin_transaction($hns_conn);
+            $sql = "DELETE FROM hns_caretaker_auth
+                    WHERE patient_user_id = ?
+                      AND is_used = 0";
+            $stmt = mysqli_prepare($hns_conn, $sql);
+            mysqli_stmt_bind_param($stmt, "i", $patient_user_id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+
+            $sql = "INSERT INTO hns_caretaker_auth
+                    (
+                        patient_user_id,
+                        authorization_code_hash,
+                        expiration_time,
+                        is_used
+                    )
+                    VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 15 MINUTE), 0)";
+
+            $stmt = mysqli_prepare($hns_conn, $sql);
+            mysqli_stmt_bind_param($stmt, "is", $patient_user_id, $auth_code_hash);
+
+            if (!mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_close($stmt);
+                throw new Exception("Unable to generate authorization code.");
+            }
+            mysqli_stmt_close($stmt);
+            $_SESSION["generated_auth_code"] = $auth_code;
+            mysqli_commit($hns_conn);
+            header("Location: " . $_SERVER["PHP_SELF"]);
+            exit();
+
+        } catch (Throwable $e) {
+
+            mysqli_rollback($hns_conn);
+            $auth_error = "Unable to generate authorization code. Please try again.";
+
+        }
+    }
+}
+
 $patient_id = null;
 $sql = "SELECT hospital_patient_id
         FROM hns_users
@@ -57,6 +159,28 @@ if ($patient) {
 
 // Insurance provider
 $provider_name = $patient["provider_name"] ?? "Insurance";
+
+// caretakers
+$caretakers = [];
+
+$sql = "SELECT
+            cp.connection_id,
+            u.HNS_first_name,
+            u.HNS_last_name
+        FROM hns_caretaker_patients cp
+        JOIN hns_users u
+            ON cp.caretaker_user_id = u.HNS_user_id
+        WHERE cp.patient_user_id = ?
+          AND cp.status = 'Active'";
+
+$stmt = mysqli_prepare($hns_conn, $sql);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+while ($caretaker = mysqli_fetch_assoc($result)) {
+    $caretakers[] = $caretaker;
+}
+mysqli_stmt_close($stmt);
 
 $height = "175 cm"; // [bjorn] I messed up here and did not implement height or weight in the sql database (will fix later)
 $weight = "75 kg";
@@ -101,6 +225,111 @@ $blood_pressure = "120/80 mmHg"; // [bjorn] do we need this for our specific sys
         </div>
 
         <div class="header-right">
+
+            <!-- [Bjorn] caretaker authorization code generator -->
+            <section class="caretaker-auth-generator">
+
+                <h4>Have a caretaker?</h4>
+                <form method="POST">
+
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="<?php echo htmlspecialchars($csrf_token); ?>"
+                    >
+
+                    <button
+                        type="submit"
+                        name="generate_auth_code"
+                        class="generate-auth-button"
+                    >
+                        Generate Caretaker Authorization Code
+                    </button>
+
+                </form>
+
+                <?php if (!empty($generated_auth_code)) { ?>
+
+                    <div class="generated-auth-code">
+
+                        <small>Your Authorization Code:</small>
+
+                        <strong><?php echo htmlspecialchars($generated_auth_code); ?></strong>
+                        <br>
+                        <small>Expires in 15 minutes. Can only be used once.</small>
+
+                    </div>
+
+                <?php } ?>
+
+                <?php if (!empty($auth_error)) { ?>
+
+                    <p class="auth-error"><?php echo htmlspecialchars($auth_error); ?></p>
+
+                <?php } ?>
+
+            </section>
+
+            <section class="caretaker-removal">
+
+                <h4>Manage Connected Caretakers</h4>
+
+                <?php if (!empty($caretaker_removed)) { ?>
+
+                    <p class="caretaker-success">Caretaker access successfully removed.</p>
+
+                <?php } ?>
+
+                <?php if (!empty($caretakers)) { ?>
+
+                    <form method="POST"
+                        onsubmit="return confirmCaretakerRemoval();">
+
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            value="<?php echo htmlspecialchars($csrf_token); ?>"
+                        >
+
+                        <label for="caretaker-select">Select a caretaker:</label>
+
+                        <select
+                            name="connection_id"
+                            id="caretaker-select"
+                            required
+                        >
+
+                            <option value="" disabled selected>Choose a caretaker</option>
+
+                            <?php foreach ($caretakers as $caretaker) { ?>
+
+                                <option value="<?php echo $caretaker["connection_id"]; ?>">
+
+                                    <?php echo htmlspecialchars($caretaker["HNS_first_name"] . " " . $caretaker["HNS_last_name"]); ?>
+
+                                </option>
+
+                            <?php } ?>
+
+                        </select>
+
+                        <button
+                            type="submit"
+                            name="remove_caretaker"
+                            class="remove-caretaker-button"
+                        >
+                            Remove Caretaker
+                        </button>
+
+                    </form>
+
+                <?php } else { ?>
+
+                    <p>No caretakers currently connected.</p>
+
+                <?php } ?>
+
+            </section>
 
             <div class="patient-profile">
 
@@ -182,7 +411,7 @@ $blood_pressure = "120/80 mmHg"; // [bjorn] do we need this for our specific sys
                                             <?php echo htmlspecialchars($appointment["reason"] ?? "No reason provided"); ?>
                                         </p>
 
-                                        <form method="POST">
+                                        <form method="POST" onsubmit="return confirmAppointmentCancellation();">
 
                                             <input
                                                 type="hidden"
@@ -492,6 +721,18 @@ $blood_pressure = "120/80 mmHg"; // [bjorn] do we need this for our specific sys
     }
 
     renderCalendar();
+
+    function confirmAppointmentCancellation() {
+
+    return confirm("Cancel this appointment?");
+
+}
+
+    function confirmCaretakerRemoval() {
+
+        return confirm("Are you sure you want to remove this caretaker?");
+
+    }
 
 </script>
 

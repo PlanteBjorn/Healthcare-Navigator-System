@@ -965,10 +965,18 @@ body.patient-dashboard .right-column {
     border-radius: 12px;
 
     padding: 15px;
-    width: 280px;
+    width: 300px;
 
     border: 1px solid #E5F0F2;
     box-shadow: 0 3px 10px rgba(0, 107, 115, 0.08);
+}
+
+.calendar-appointments h4 {
+    font-size: 18px;
+}
+
+.calendar-appointments p {
+    font-size: 15px;
 }
 
 /* calendar header */
@@ -1083,6 +1091,9 @@ body.patient-dashboard .doctors-section {
     border-radius: 12px;
 
     padding: 20px;
+
+    position: relative;
+    left: -50px;
 }
 
 body.patient-dashboard .doctors-section h3 {
@@ -1747,3 +1758,162 @@ body.caretaker-signin .signin-box .patient-option:hover a {
     color: #000000;
 }
 
+/* header layout adjustment */
+body.patient-dashboard .header-right {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+/* shared caretaker management styling */
+body.patient-dashboard .caretaker-auth-generator,
+body.patient-dashboard .caretaker-removal {
+    width: 260px;
+    background-color: #F7FCFD;
+    border: 1px solid #DCECEF;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+}
+
+/* section headings */
+body.patient-dashboard .caretaker-auth-generator h4,
+body.patient-dashboard .caretaker-removal h4 {
+    color: #008FA5;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+/* generate authorization button */
+body.patient-dashboard .generate-auth-button {
+    width: 100%;
+    padding: 9px 12px;
+    background-color: #303030;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+body.patient-dashboard .generate-auth-button:hover {
+    background-color: #008FA5;
+}
+
+/* generated authorization code */
+body.patient-dashboard .generated-auth-code {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #E1F1F5;
+    border-radius: 6px;
+    color: #006B73;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+body.patient-dashboard .generated-auth-code strong {
+    display: block;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #008FA5;
+}
+
+/* error */
+body.patient-dashboard .auth-error {
+    margin-top: 8px;
+    color: #C0392B;
+    font-size: 11px;
+}
+
+/* caretaker dropdown form */
+body.patient-dashboard .caretaker-removal form {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    text-align: left;
+}
+
+/* dropdown label */
+body.patient-dashboard .caretaker-removal label {
+    color: #333333;
+    font-size: 12px;
+}
+
+/* caretaker selection dropdown */
+body.patient-dashboard #caretaker-select {
+    width: 100%;
+    padding: 9px;
+    background-color: #FFFFFF;
+    border: 1px solid #B8DDE3;
+    border-radius: 6px;
+    color: #333333;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+body.patient-dashboard #caretaker-select:focus {
+    outline: none;
+    border-color: #00B9C7;
+    box-shadow: 0 0 0 2px rgba(0, 185, 199, 0.15);
+}
+
+/* remove caretaker button */
+body.patient-dashboard .remove-caretaker-button {
+    width: 100%;
+    padding: 9px 12px;
+    background-color: #303030;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+body.patient-dashboard .remove-caretaker-button:hover {
+    background-color: #C0392B;
+}
+
+/* removal confirmation message */
+body.patient-dashboard .caretaker-success {
+    padding: 9px;
+    background-color: #E3F6EA;
+    color: #218838;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+/* empty caretaker message */
+body.patient-dashboard .caretaker-removal > p {
+    font-size: 12px;
+    color: #666666;
+    line-height: 1.5;
+}
+
+/* cancel Appointment Button */
+body.patient-dashboard .appointment-details button {
+    background-color: #EAF8FC;
+    color: #C0392B;
+
+    border: 1px solid #C0392B;
+    border-radius: 5px;
+
+    padding: 7px 14px;
+
+    font-size: 11px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* hover Effect */
+body.patient-dashboard .appointment-details button:hover {
+    background-color: #C0392B;
+    color: #FFFFFF;
+}
